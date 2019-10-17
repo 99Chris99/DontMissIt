@@ -22,7 +22,7 @@ render () {
   return (
     <div className="App">
       <header className="App-header">
-       <div>Hello!</div>
+       <div>Hello! Dev Test</div>
       </header>
     </div>
   );
