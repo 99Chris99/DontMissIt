@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
+
+
+class App extends Component {
+
+state = {
+  eventData: []
+}
+
+
+componentDidMount () {
+  this.getTicketMaster()
+}
+
+getTicketMaster = () => {
+return fetch(`https://app.ticketmaster.com/discovery/v2/events.json?keyword=chelsea%20fc&apikey=2sQ195wxoeK8TTLpFxB8XPY5WHbaFyBm`).then(response => response.json()).then(data => this.setState({eventData: data}))
+}
+
+render () {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+       <div>Hello!</div>
       </header>
     </div>
   );
+}
 }
 
 export default App;
