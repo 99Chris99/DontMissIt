@@ -7,6 +7,8 @@ export class Login extends Component {
         users: [],
         validUser: false    
     }
+
+
     
     getUsers = () => {
         fetch(`http://localhost:3000/users`).then(response => response.json()).then(users => this.addUsers(users))
@@ -15,7 +17,6 @@ export class Login extends Component {
     postUser = (event) => {
         event.preventDefault()
         let data = {username: this.state.signUpName}
-
         fetch(`http://localhost:3000/users/`,{
             method: "POST",
             headers: {
@@ -24,14 +25,13 @@ export class Login extends Component {
             },
             body: JSON.stringify(data)
     }).then(response => response.json()).then(newUser => {
-        
         this.addUsers([newUser])
         this.setState({
             username: newUser.username,
-            signUpName: ''
+            signUpName: '',
+            validUser: true
         })
-        alert('Sign Up Successful Please Login')
-    })
+    }).catch(alert('Username Already Taken'))
     }
     
     componentDidMount () {
@@ -71,6 +71,7 @@ export class Login extends Component {
         }else{alert('Username not found, please Sign Up!')
                 this.setState({signUpName: this.state.username})}
                 this.setState({username: ''})
+                document.getElementById('signUpInput').focus()
     }
 
     
@@ -79,13 +80,13 @@ export class Login extends Component {
             <div>
                 <h2>Login</h2>
                 <form onSubmit={event => this.validatieUser(event)}>
-                    <input type="text" onChange={event => this.setUsername(event)} value={this.state.username} />
+                    <input id="logInInput" type="text" onChange={event => this.setUsername(event)} value={this.state.username} />
                     <div><button type="submit">Submit</button></div>
                 </form>
                 <br></br>
                 <form onSubmit={event => this.postUser(event)}>
                     <h2>Sign Up</h2>
-            <input type="text" onChange={event => this.setSignUpName(event)} value={this.state.signUpName} />
+            <input id="signUpInput" type="text" onChange={event => this.setSignUpName(event)} value={this.state.signUpName} />
             <div>
             <button type="submit">Submit</button>
             </div>    
