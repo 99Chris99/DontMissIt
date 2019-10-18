@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Login from './components/Login'
 
 
 
@@ -23,6 +24,7 @@ render () {
     <div className="App">
       <header className="App-header">
        <div>Hello! Dev Test</div>
+       <Login />
       </header>
     </div>
   );
