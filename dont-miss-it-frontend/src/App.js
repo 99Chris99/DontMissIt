@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Login from './components/Login'
+import FreeDates from './components/FreeDates'
 
 
 
@@ -25,6 +26,7 @@ render () {
       <header className="App-header">
        <div>Hello! Dev Test</div>
        <Login />
+       <FreeDates />
       </header>
     </div>
   );
