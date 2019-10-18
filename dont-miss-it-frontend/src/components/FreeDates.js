@@ -2,19 +2,40 @@ import React, { Component } from 'react';
 
 export class FreeDates extends Component {
 state={
-    selectedDate
+    selectedDate: '',
+    selectedDates: []
 }
 
+listDates = (event) => {
+    event.preventDefault()
+    this.setState({
+        selectedDates: [
+            ...this.state.selectedDates,
+            this.state.selectedDate
+        ]
+    }
+    ) 
+
+    
+    
+}
     
 
     render() {
         return (
             <div>
-               <form>
-                <input type="date"></input>
-
+               <form onSubmit={(event) => this.listDates(event)}>
+                <input type="date" onChange={event => {this.setState(
+                    {selectedDate: event.target.value})}}></input>
+                <button type="submit">Add Date</button>
                </form>
 
+               <div>
+                   <h5>I'm free on...</h5>
+                   <ul>
+                   {this.state.selectedDates.map(date => <li>{date}</li>)}
+                   </ul>
+               </div>
             </div>
         );
     }
