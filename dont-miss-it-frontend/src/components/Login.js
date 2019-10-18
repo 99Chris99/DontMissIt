@@ -8,6 +8,31 @@ export class Login extends Component {
         validUser: false    
     }
     
+    getUsers = () => {
+        fetch(`http://localhost:3000/users`).then(response => response.json()).then(users => this.addUsers(users))
+    }
+
+    postUser = (event) => {
+        event.preventDefault()
+        let data = {username: this.state.signUpName}
+
+        fetch(`http://localhost:3000/users/`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(data)
+    }).then(response => response.json()).then(newUser => {
+        
+        this.addUsers([newUser])
+        this.setState({
+            username: newUser.username,
+            signUpName: ''
+        })
+        alert('Sign Up Successful Please Login')
+    })
+    }
     
     componentDidMount () {
         return this.getUsers()
@@ -26,14 +51,16 @@ export class Login extends Component {
     }
     }
 
-    getUsers = () => {
-        fetch(`http://localhost:3000/users`).then(response => response.json()).then(users => this.addUsers(users))
-    }
     
     
     setUsername = (event) => {
         this.setState({
             username: event.target.value
+        })
+    }
+    setSignUpName = (event) => {
+        this.setState({
+            signUpName: event.target.value
         })
     }
 
@@ -56,9 +83,9 @@ export class Login extends Component {
                     <div><button type="submit">Submit</button></div>
                 </form>
                 <br></br>
-                <form>
+                <form onSubmit={event => this.postUser(event)}>
                     <h2>Sign Up</h2>
-            <input type="text" onChange={event => this.setUsername(event)} value={this.state.signUpName} />
+            <input type="text" onChange={event => this.setSignUpName(event)} value={this.state.signUpName} />
             <div>
             <button type="submit">Submit</button>
             </div>    

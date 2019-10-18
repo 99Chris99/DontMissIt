@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+    skip_before_action :verify_authenticity_token
+
     def index
         users = User.all
         render json: users
@@ -15,7 +17,8 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.new(user_params)
+       
+        user = User.new(username: params[:username])
         if user.save
             render json: user
         else
@@ -24,8 +27,9 @@ class UsersController < ApplicationController
     end
 
     private
+
     def user_params
-        params.require(:username.permit(:username))
+        params.require(:user.permit(:username))
     end
 
 end
