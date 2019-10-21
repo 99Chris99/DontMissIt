@@ -6,7 +6,7 @@ state={
     selectedDates: []
 }
 
-listDates = (event) => {
+addDates = (event) => {
     event.preventDefault()
     this.setState({
         selectedDates: [
@@ -14,17 +14,29 @@ listDates = (event) => {
             this.state.selectedDate
         ]
     }
-    ) 
+    )    
+}
 
-    
-    
+removeDate = (deleteDate) => {
+    console.log(deleteDate)
+    let newDates = this.state.selectedDates.filter(date => date !== deleteDate)
+    console.log(newDates)
+    this.setState({
+        selectedDates: newDates
+    })
+}
+
+listDates = () => {
+   return this.state.selectedDates.map(date => <li key={date}> {date}  <button onClick={() => this.removeDate(date)}>Delete</button></li>)
 }
     
+
+//(event, date) => {this.removeDate(event, date)}
 
     render() {
         return (
             <div>
-               <form onSubmit={(event) => this.listDates(event)}>
+               <form onSubmit={(event) => this.addDates(event)}>
                 <input type="date" onChange={event => {this.setState(
                     {selectedDate: event.target.value})}}></input>
                 <button type="submit">Add Date</button>
@@ -33,7 +45,7 @@ listDates = (event) => {
                <div>
                    <h5>I'm free on...</h5>
                    <ul>
-                   {this.state.selectedDates.map(date => <li>{date}</li>)}
+                   {this.listDates()}
                    </ul>
                </div>
             </div>
