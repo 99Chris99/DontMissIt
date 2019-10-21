@@ -43,7 +43,7 @@ class FreeDatesController < ApplicationController
     private
 
     def free_dates_params
-        params.require(:free_date).permit(:date, :id)
+        params.require(:free_date).permit(:user_id, :date, :id)
     end
 
     

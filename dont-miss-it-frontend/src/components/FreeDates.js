@@ -58,7 +58,7 @@ removeDate = (deleteDate) => {
 }
 
 listDates = () => {
-   return this.state.selectedDates.map(date => <li key={date.date}> {date.date}  <button onClick={() => this.removeDate(date)}>Delete</button></li>)
+   return this.state.selectedDates.map(date => <li key={date.id}> {date.date}  <button onClick={() => this.removeDate(date)}>Delete</button></li>)
 }
     
 
