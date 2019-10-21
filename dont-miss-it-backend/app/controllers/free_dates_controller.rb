@@ -6,11 +6,14 @@ class FreeDatesController < ApplicationController
     end
 
     def show
-        date = FreeDate.find_by(date:params[:date])
+        # date = FreeDate.find_by(user_id:params[:user_id])
+        
+        date = FreeDate.dates_by_user(params[:id])
+        
         if date
             render json: date
         else
-            render json: { errors: ["Username not found"] }, status: 403
+            render json: { errors: ["Dates not found"] }, status: 403
         end
     end
 
@@ -26,7 +29,7 @@ class FreeDatesController < ApplicationController
     private
 
     def user_params
-        params.require(:date).permit(:date)
+        params.require(:date).permit(:user_id, :date)
     end
 
     

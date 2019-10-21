@@ -3,8 +3,18 @@ import React, { Component } from 'react';
 export class FreeDates extends Component {
 state={
     selectedDate: '',
-    selectedDates: []
+    selectedDates: [],
+    user: 4
 }
+
+componentDidMount (user) {
+    this.getUserDates(user)
+}
+
+getUserDates = (user) => {
+    fetch(`http://localhost:3000/free_dates`).then(response => response.json()).then(console.log)
+}
+
 
 addDates = (event) => {
     event.preventDefault()
