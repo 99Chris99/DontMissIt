@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Login from './components/Login'
 import FreeDates from './components/FreeDates'
+import Matches from './components/Matches'
 
 
 
@@ -27,6 +28,7 @@ render () {
        <div>Hello! Dev Test</div>
        <Login />
        <FreeDates />
+       <Matches />
       </header>
     </div>
   );

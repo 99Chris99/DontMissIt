@@ -13,6 +13,8 @@ componentDidMount (user) {
 
 getUserDates = () => {
     fetch(`http://localhost:3000/users/${this.state.user}`).then(response => response.json()).then(dates => this.setState({selectedDates: dates.free_dates}))    
+    
+
 }
 
 
