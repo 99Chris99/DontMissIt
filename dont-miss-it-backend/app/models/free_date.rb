@@ -3,9 +3,9 @@ class FreeDate < ApplicationRecord
 
 
 
-def self.dates_by_user (user)
-  FreeDate.where(user_id: user)
-end
+# def self.dates_by_user (user)
+#   FreeDate.where(user_id: user)
+# end
 
 
 end #class end

@@ -11,33 +11,54 @@ componentDidMount (user) {
     this.getUserDates(user)
 }
 
-getUserDates = (user) => {
-    fetch(`http://localhost:3000/free_dates`).then(response => response.json()).then(console.log)
+getUserDates = () => {
+    fetch(`http://localhost:3000/users/${this.state.user}`).then(response => response.json()).then(dates => this.setState({selectedDates: dates.free_dates}))    
 }
 
 
 addDates = (event) => {
     event.preventDefault()
+    let data = {
+        user_id: this.state.user,
+        date: this.state.selectedDate
+    }  
+        fetch(`http://localhost:3000/free_dates/`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(response => response.json())     
+    .then(newDate => {
     this.setState({
         selectedDates: [
             ...this.state.selectedDates,
-            this.state.selectedDate
+            newDate
         ]
     }
-    )    
+    )   
+}) 
 }
 
 removeDate = (deleteDate) => {
-    console.log(deleteDate)
-    let newDates = this.state.selectedDates.filter(date => date !== deleteDate)
-    console.log(newDates)
+
+    let dateToGo = deleteDate.id
+
+    fetch(`http://localhost:3000/free_dates/${dateToGo}`,{
+    method: "DELETE"
+    }
+    )
+.then(response => response.json()).then(byeDate => {
+    let newDates = this.state.selectedDates.filter(date => date.id !== byeDate.id)
     this.setState({
         selectedDates: newDates
     })
+})
 }
 
 listDates = () => {
-   return this.state.selectedDates.map(date => <li key={date}> {date}  <button onClick={() => this.removeDate(date)}>Delete</button></li>)
+   return this.state.selectedDates.map(date => <li key={date.date}> {date.date}  <button onClick={() => this.removeDate(date)}>Delete</button></li>)
 }
     
 

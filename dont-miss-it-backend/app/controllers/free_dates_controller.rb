@@ -1,14 +1,17 @@
 class FreeDatesController < ApplicationController
 
+    skip_before_action :verify_authenticity_token
+
     def index
         freedates = FreeDate.all
         render json: freedates
     end
 
     def show
-        # date = FreeDate.find_by(user_id:params[:user_id])
+         
+        date = FreeDate.find_by(id:params[:id])
         
-        date = FreeDate.dates_by_user(params[:id])
+        #date = FreeDate.dates_by_user(params[:id])
         
         if date
             render json: date
@@ -18,7 +21,7 @@ class FreeDatesController < ApplicationController
     end
 
     def create
-        date = FreeDate.new(user_params)
+        date = FreeDate.new(free_dates_params)
         if date.save
             render json: date
         else
@@ -26,10 +29,21 @@ class FreeDatesController < ApplicationController
         end
     end
 
+    def destroy
+       
+        date = FreeDate.find(params[:id])
+
+        if date
+            date.destroy
+            render json: date
+        end
+
+    end
+
     private
 
-    def user_params
-        params.require(:date).permit(:user_id, :date)
+    def free_dates_params
+        params.require(:free_date).permit(:date, :id)
     end
 
     

@@ -8,9 +8,9 @@ class UsersController < ApplicationController
     end
     
     def show
-        user = User.find_by(username:params[:username])
+        user = User.find_by(id:params[:id])
         if user
-            render json: user
+            render json: user, include: [:free_dates]
         else
             render json: { errors: ["Username not found"] }, status: 403
         end
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user.permit(:username))
+        params.require(:user.permit(:username, :id))
     end
 
 end
