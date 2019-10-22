@@ -20,3 +20,11 @@
 .App-link {
   color: #09d3ac;
 }
+
+#addFavouritesList {
+  width: 350px;
+  border: 2px solid green;
+  padding: 50px;
+  margin: 20px;
+  background-color: darkblue;
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Login from './components/Login'
 import FreeDates from './components/FreeDates'
+import Favourites from './components/Favourites'
 
 
 
@@ -27,6 +28,7 @@ render () {
        <div>Hello! Dev Test</div>
        <Login />
        <FreeDates />
+       <Favourites />
       </header>
     </div>
   );
