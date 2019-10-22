@@ -3,6 +3,7 @@ import './App.css';
 import Login from './components/Login'
 import FreeDates from './components/FreeDates'
 import Matches from './components/Matches'
+import Favourites from './components/Favourites'
 
 
 
@@ -29,6 +30,7 @@ render () {
        <Login />
        <FreeDates />
        <Matches />
+       <Favourites />
       </header>
     </div>
   );
