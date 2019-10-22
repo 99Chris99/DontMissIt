@@ -116,17 +116,14 @@ class Favourites extends Component {
   render() {
     return (
       <div>
-        Favourites component
+       <h3 class="ui header"> Add your favourite events </h3>
         <div>
-          <form
-            id="addFavourtiesForm"
-            onSubmit={event => this.submittedKeywordHandler(event)}>
-            <input
-              type="text"
-              onChange={event => {
-                this.setState({ searchKeyword: event.target.value })
-              }}></input>
-            <button type="submit">Search Events</button>
+          <form id="addFavourtiesForm" onSubmit={event => this.submittedKeywordHandler(event)}>
+            
+            <div class="ui icon input">
+              <input type="text" onChange={event => {this.setState({ searchKeyword: event.target.value })}}></input>
+              <button class="ui button" class="ui button" type="submit">Search Events</button>
+            </div>
           </form>
         </div>
         <div>
@@ -137,18 +134,16 @@ class Favourites extends Component {
               <select  value={this.state.value} onChange={this.postEventOnClick}>
                 {this.state.attractions.map(attraction => <option value={attraction}>{attraction}</option>)}
               </select>
+              
             </label>
           </form>
         </div>
-        <button onClick={this.showEventsOnClick}>{this.state.showFavouritesList ? "Hide my favourites list" : "Show my favourites list"}</button>
+        <br></br>
+
+        <button class="ui blue button" onClick={this.showEventsOnClick}>{this.state.showFavouritesList ? "Hide my favourites list" : "Show my favourites list"}</button>
         <div>
          {this.state.showFavouritesList ? <FavouritesList destroy={this.destroy} favourites={this.state.favouriteAttractionsFromServer} /> : undefined} 
         </div>
-        
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
       </div>
     )
   }
