@@ -13,7 +13,9 @@ class FavouritesList extends Component {
       <div>
         <ul id="addFavouritesList">
           {this.uniqueFavourites().map(attraction => (
-            <li>{attraction.split(':')[1]}<button onClick={() => this.props.destroy(attraction.split(':')[0])} >Delete</button></li>
+            <li key={attraction.id}> {attraction.name}<button onClick={() => this.props.destroy(attraction.id)} >Delete</button></li>
+          // {this.uniqueFavourites().map(attraction => (
+          //   <li>{attraction.split(':')[1]}<button onClick={() => this.props.destroy(attraction.split(':')[0])} >Delete</button></li>
           ))}
         </ul>
       </div>

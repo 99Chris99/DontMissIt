@@ -7,51 +7,71 @@ class Favourites extends Component {
   state = {
     attractions: [],
     searchKeyword: "",
-    submittedKeyword: "",
     favouriteAttractions: [],
-    favouriteAttractionsFromServer: [],
     showFavouritesList: false,
-    attractionToAdd: {}
+    queryReturn: {}
   }
 
 
+  componentDidMount() {
+    this.getFavouriteAttractions()
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      this.state.submittedKeyword !== prevState &&
-      this.state.submittedKeyword !== ""
+      this.state.queryReturn !== prevState.queryReturn &&
+      this.state.queryReturn !== {}
     ) {
-      return this.getAttractions()
+      return this.processQueryData(this.state.queryReturn)
+     console.log('hi')
+    }else if (this.props.userId !== prevProps.userId) {
+  this.getFavouriteAttractions()
+    }else if (this.state.favouriteAttractionsFromServer !== prevState.favouriteAttractionsFromServer && this.state.favouriteAttractionsFromServer !== []){
+      this.props.getFavourites(this.state.favouriteAttractionsFromServer)
     }
   }
 
   getAttractions = () => {
     return fetch(
-      `https://app.ticketmaster.com/discovery/v2/attractions.json?keyword=${this.state.submittedKeyword}&apikey=2sQ195wxoeK8TTLpFxB8XPY5WHbaFyBm`
+      `https://app.ticketmaster.com/discovery/v2/attractions.json?keyword=${this.state.searchKeyword}&apikey=2sQ195wxoeK8TTLpFxB8XPY5WHbaFyBm`,
+      {method: "GET"
+    }
     )
       .then(response => response.json())
-      .then(data =>
-        this.setState({
-            attractions:
-              data.page.totalElements === 0
-                ? window.location.reload(false) &
-                  alert("sorry this event does not exist")
-                : data._embedded.attractions.map(attraction => {
-                  const container = {};
-                  container['name'] = attraction.name;
-                  container['tmId'] = attraction.id;
-                  return container
-                })
-          })
-        // this.setState({
-        //     attractions:
-        //       data.page.totalElements === 0
-        //         ? window.location.reload(false) &
-        //           alert("sorry this event does not exist")
-        //         : data._embedded.attractions.map(attraction => attraction.name)
-        //   })
-         
-      )
+      .then(data => {
+        if (data.page.totalElements === 0) 
+        { return window.location.reload(false) & alert("sorry this event does not exist")
+      }else this.setState({
+          queryReturn: data
+        })
+      })
+      // .then(data =>
+      //   this.setState({
+      //       attractions:
+      //         data.page.totalElements === 0
+      //           ? window.location.reload(false) &
+      //             alert("sorry this event does not exist")
+      //           : data._embedded.attractions.map(attraction => {
+      //             const container = {};
+      //             container['name'] = attraction.name;
+      //             container['tmId'] = attraction.id;
+      //             return container
+      //           })
+      //     })
+      // )
+  }
+
+  processQueryData = (data) => {
+    this.setState({
+          attractions:
+            data._embedded.attractions.map(attraction => {
+                const container = {};
+                container['name'] = attraction.name;
+                container['tmId'] = attraction.id;
+                return container
+              })
+        })
+    
   }
 
 
@@ -62,7 +82,9 @@ class Favourites extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({
-          favouriteAttractionsFromServer: data.favourites.map(attraction => `${attraction.id}:${attraction.name}`)
+          //favouriteAttractionsFromServer: data.favourites.map(attraction => `${attraction.id}:${attraction.name}`),
+          //favouriteAttractionsFromServer: data.favourites.map(attraction => `${attraction.id}:${attraction.name}`),
+          favouriteAttractions: data.favourites
           // favouriteAttractionsFromServer: [
           //   ...this.state.favouriteAttractionsFromServer,
             
@@ -91,7 +113,7 @@ class Favourites extends Component {
       method: "POST",
       headers: {"Content-Type": "application/json", Accept: "application/json"},
       body: JSON.stringify(data)
-    }).then(response => response.json()).then(this.setState({favouriteAttractions: [...this.state.favouriteAttractions, data.name]}))
+    }).then(response => response.json()).then(newAttract => this.setState({favouriteAttractions: [...this.state.favouriteAttractions, newAttract]}))
     
   }
 
@@ -102,6 +124,7 @@ class Favourites extends Component {
   submittedKeywordHandler = event => {
     event.preventDefault()
     this.setState({ submittedKeyword: this.state.searchKeyword })
+    this.getAttractions()
   }
 
   clearFavouritesFormInput = () => {
@@ -135,9 +158,9 @@ class Favourites extends Component {
     return fetch(`http://localhost:3000/favourites/${id}`, {
       method: 'DELETE'
     }).then(resp => resp.json()).then(data => {
-      let newFavourites = this.state.favouriteAttractionsFromServer.filter(attraction => attraction.split(':')[0] != data.id )
-
-      this.setState({favouriteAttractionsFromServer: newFavourites})
+      let newFavourites = this.state.favouriteAttractions.filter(attraction => attraction.id != data.id )
+      // let newFavourites = this.state.favouriteAttractionsFromServer.filter(attraction => attraction.split(':')[0] != data.id )
+      this.setState({favouriteAttractions: newFavourites})
     })
   }
 
@@ -169,9 +192,10 @@ class Favourites extends Component {
             </label>
           </form>
         </div>
-        <button onClick={this.showEventsOnClick}>{this.state.showFavouritesList ? "Hide my favourites list" : "Show my favourites list"}</button>
+        {/* <button onClick={this.showEventsOnClick}>{this.state.showFavouritesList ? "Hide my favourites list" : "Show my favourites list"}</button> */}
         <div>
-         {this.state.showFavouritesList ? <FavouritesList destroy={this.destroy} favourites={this.state.favouriteAttractionsFromServer} /> : undefined} 
+         {/* {this.state.showFavouritesList ? <FavouritesList destroy={this.destroy} favourites={this.state.favouriteAttractionsFromServer} /> : undefined}  */}
+         <FavouritesList destroy={this.destroy} favourites={this.state.favouriteAttractions}/>
         </div>
         
         <br></br>

@@ -11,7 +11,8 @@ class App extends Component {
 
 state = {
   user: {id: 4},
-  selectedDates: []
+  selectedDates: [],
+  favourites:[]
 }
 
 
@@ -27,13 +28,11 @@ getSelectedDates = (newDates) => {
   })
 }
 
-
-//////////////////////// Free Dates /////////////////
-
-
-
-
-////////////////////// Free Dates End /////////////////
+getFavourites = (newFavs) => {
+  this.setState({
+    favourites: newFavs
+  })
+}
 
 
 render () {
@@ -43,7 +42,7 @@ render () {
        <div>Hello! Dev Test</div>
        <Login getUser={this.getUser}/>
        <FreeDates getSelectedDates={this.getSelectedDates} userId={this.state.user}/>
-       <Favourites userId={this.state.user.id}/>
+       <Favourites userId={this.state.user.id} getFavourites={this.getFavourites}/>
        <Matches />
       </header>
     </div>
