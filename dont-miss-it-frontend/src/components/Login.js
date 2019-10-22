@@ -67,7 +67,12 @@ export class Login extends Component {
     validatieUser = (event) => {
         event.preventDefault()
         if ([...this.state.users].find(name => name.username === this.state.username)) {
-            this.setState({validUser: true})
+            this.setState({validUser: true
+            })
+         let  userId = [...this.state.users].find(name => name.username === this.state.username)
+
+            this.props.getUser(userId)
+
         }else{alert('Username not found, please Sign Up!')
                 this.setState({signUpName: this.state.username})}
                 this.setState({username: ''})
