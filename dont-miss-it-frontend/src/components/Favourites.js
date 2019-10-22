@@ -10,8 +10,11 @@ class Favourites extends Component {
     submittedKeyword: "",
     favouriteAttractions: [],
     favouriteAttractionsFromServer: [],
-    showFavouritesList: false
+    showFavouritesList: false,
+    attractionToAdd: {}
   }
+
+
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -29,23 +32,37 @@ class Favourites extends Component {
       .then(response => response.json())
       .then(data =>
         this.setState({
-          attractions:
-            data.page.totalElements === 0
-              ? window.location.reload(false) &
-                alert("sorry this event does not exist")
-              : data._embedded.attractions.map(attraction => attraction.name)
-        })
+            attractions:
+              data.page.totalElements === 0
+                ? window.location.reload(false) &
+                  alert("sorry this event does not exist")
+                : data._embedded.attractions.map(attraction => {
+                  const container = {};
+                  container['name'] = attraction.name;
+                  container['tmId'] = attraction.id;
+                  return container
+                })
+          })
+        // this.setState({
+        //     attractions:
+        //       data.page.totalElements === 0
+        //         ? window.location.reload(false) &
+        //           alert("sorry this event does not exist")
+        //         : data._embedded.attractions.map(attraction => attraction.name)
+        //   })
+         
       )
   }
 
 
 
   getFavouriteAttractions = () => {
-    return fetch('http://localhost:3000/favourites')
+    let userId = this.props.userId
+    return fetch(`http://localhost:3000/users/${userId}`)
       .then(response => response.json())
       .then(data => {
         this.setState({
-          favouriteAttractionsFromServer: data.map(attraction => `${attraction.id}:${attraction.name}`)
+          favouriteAttractionsFromServer: data.favourites.map(attraction => `${attraction.id}:${attraction.name}`)
           // favouriteAttractionsFromServer: [
           //   ...this.state.favouriteAttractionsFromServer,
             
@@ -62,18 +79,20 @@ class Favourites extends Component {
 
 
 
-  postAttraction = (event) => {
-    
-   let data = {
-     user_id: 1,
-     name: event.target.value
+  postAttraction = (objToAdd) => {   
+
+  let data = {
+    user_id: this.props.userId,
+    name: objToAdd.name,
+    tm_id: objToAdd.tmId
   }
+  console.log(data)
      fetch('http://localhost:3000/favourites', {
       method: "POST",
       headers: {"Content-Type": "application/json", Accept: "application/json"},
       body: JSON.stringify(data)
     }).then(response => response.json()).then(this.setState({favouriteAttractions: [...this.state.favouriteAttractions, data.name]}))
-    event.preventDefault()
+    
   }
 
   searchKeywordHandler = event => {
@@ -99,7 +118,16 @@ class Favourites extends Component {
   }
 
   postEventOnClick = (event) => {
-    this.postAttraction(event)
+    event.preventDefault()
+    let objToAdd = this.state.attractions.find(({tmId}) => tmId === event.target.value)
+    
+    
+    this.setState({
+      attractionToAdd: objToAdd
+    })
+    
+    this.postAttraction(objToAdd)
+    
     alert('Event added to your favourites list')
   }
 
@@ -133,9 +161,10 @@ class Favourites extends Component {
           <br></br>
           <form>
             <label>
-              Pick event:
-              <select  value={this.state.value} onChange={this.postEventOnClick}>
-                {this.state.attractions.map(attraction => <option value={attraction}>{attraction}</option>)}
+              Pick Attraction:
+
+              <select  onChange={this.postEventOnClick}>
+                {this.state.attractions.map(attraction => <option value={attraction.tmId}>{attraction.name}</option>)}
               </select>
             </label>
           </form>

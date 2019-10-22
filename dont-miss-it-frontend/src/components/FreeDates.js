@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
 
 export class FreeDates extends Component {
-state={
+
+constructor(props) {
+super();
+  this.state = {
     selectedDate: '',
     selectedDates: [],
-    user: 4
+    user: props.userId.id
+};
 }
 
-componentDidMount (user) {
+
+
+componentDidUpdate (prevProps, preState) {
+    if (this.state.selectedDates !== preState.selectedDates){
+        this.props.getSelectedDates(this.state.selectedDates)
+    }else if (this.props.userId.id !== prevProps.userId.id) {
+        this.setState({user: this.props.userId.id})
+    }
+}
+
+    
+    componentDidMount (user) {
     this.getUserDates(user)
+    console.log(this.props.userId)
 }
 
 getUserDates = () => {
     fetch(`http://localhost:3000/users/${this.state.user}`).then(response => response.json()).then(dates => this.setState({selectedDates: dates.free_dates}))    
-    
-
 }
 
 

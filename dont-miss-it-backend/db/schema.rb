@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_091328) do
+ActiveRecord::Schema.define(version: 2019_10_22_125830) do
 
   create_table "favourites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "tm_id"
     t.index ["user_id"], name: "index_favourites_on_user_id"
   end
 

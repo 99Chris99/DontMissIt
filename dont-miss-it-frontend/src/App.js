@@ -10,12 +10,10 @@ import Favourites from './components/Favourites'
 class App extends Component {
 
 state = {
-  user: ''
+  user: {id: 4},
+  selectedDates: []
 }
 
-
-componentDidMount () {
-}
 
 getUser = (user) => {
     this.setState({
@@ -23,6 +21,19 @@ getUser = (user) => {
     })
 }
 
+getSelectedDates = (newDates) => {
+  this.setState({
+    selectedDates: newDates
+  })
+}
+
+
+//////////////////////// Free Dates /////////////////
+
+
+
+
+////////////////////// Free Dates End /////////////////
 
 
 render () {
@@ -31,8 +42,8 @@ render () {
       <header className="App-header">
        <div>Hello! Dev Test</div>
        <Login getUser={this.getUser}/>
-       <FreeDates />
-       <Favourites />
+       <FreeDates getSelectedDates={this.getSelectedDates} userId={this.state.user}/>
+       <Favourites userId={this.state.user.id}/>
        <Matches />
       </header>
     </div>
