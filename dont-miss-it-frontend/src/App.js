@@ -48,10 +48,12 @@ render () {
     <div className="App">
       <header className="App-header">
        <div>Hello! Dev Test</div>
-       <Login getUser={this.getUser}/>
+       {this.state.user.id === '' ? <Login getUser={this.getUser} /> : 
+       <div>
        <FreeDates getSelectedDates={this.getSelectedDates} userId={this.state.user}/>
        <Favourites userId={this.state.user.id} getFavourites={this.getFavourites}/>
        <Matches dates={this.mapDatesForProps()} favourites={this.state.favourites}/>
+       </div>}
       </header>
     </div>
   );

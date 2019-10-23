@@ -116,7 +116,13 @@ export class Matches extends Component {
                     link: details.url,
                     venue: details._embedded.venues[0].name
                 }
+                
+                // let unique = [...this.state.eventMatches, newObj]
+                // let uniqueArry = [...new Set([...unique])]
 
+                // this.setState({
+                //     eventMatches: uniqueArry
+                // })
                 this.setState({
                     eventMatches: [...this.state.eventMatches,
                     newObj]
@@ -148,7 +154,7 @@ export class Matches extends Component {
         return (
             <div>
                 <h3>It's a match!</h3>
-                <button onClick={() => this.state.currentGet.length > 1 ? this.findMatches() : undefined }>Update Matches</button>
+                {/* <button onClick={() => this.state.currentGet.length > 1 ? this.findMatches() : undefined }>Update Matches</button> */}
                       <MatchSet matches={this.state.eventMatches} />
                       
                 
