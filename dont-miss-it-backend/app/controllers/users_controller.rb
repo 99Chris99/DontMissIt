@@ -22,14 +22,15 @@ class UsersController < ApplicationController
         if user.save
             render json: user
         else
-            render json: { errors: user.errors.full_messages }, status: 403
+            render json: {errors: user.errors.full_messages }, status: 403
+            #render json: { errors: user.errors.full_messages }, status: 403
         end
     end
 
     private
 
     def user_params
-        params.require(:user.permit(:username, :id))
+        params.require(:user.permit(:username, :id, :user, :errors, :status))
     end
 
 end
