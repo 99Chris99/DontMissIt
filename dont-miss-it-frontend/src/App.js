@@ -65,7 +65,7 @@ class App extends Component {
                 <div class="extra content"></div>
               </div>
             ) : (
-              <div>
+              <div id="table">
                 <table class="ui single line table" id="table">
                   <thead class="">
                     <tr class="">

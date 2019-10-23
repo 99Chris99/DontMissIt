@@ -34,7 +34,8 @@
 #table {
   width: auto;
   height: auto;
-  margin-bottom: 1rem
+  margin-bottom: 1rem;
+  background-image: url("./crowd.jpg");
 }
 
 #button {
@@ -46,11 +47,11 @@
 }
 
 #matches-card {
-  width: 50vw;
+  width: auto;
   height: 0%;
   margin: 4rem;
-  /* align-content: center; */
-  /* align-self: center; */
-  align-items: center;
+  /* align-content: center;
+  align-self: center;
+  align-items: center; */
   text-align: center;
 }
