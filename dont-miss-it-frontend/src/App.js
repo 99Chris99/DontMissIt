@@ -10,7 +10,7 @@ import Favourites from './components/Favourites'
 class App extends Component {
 
 state = {
-  user: {id: 4},
+  user: {id: ''},
   selectedDates: [],
   favourites:[]
 }
@@ -29,9 +29,17 @@ getSelectedDates = (newDates) => {
 }
 
 getFavourites = (newFavs) => {
+  if (typeof newFavs !== 'undefined') {
   this.setState({
     favourites: newFavs
   })
+}
+}
+
+mapDatesForProps = () => {
+  if (this.state.selectedDates > 0) {
+ return this.state.selectedDates.map(datey => datey.date)
+  }
 }
 
 
@@ -43,7 +51,7 @@ render () {
        <Login getUser={this.getUser}/>
        <FreeDates getSelectedDates={this.getSelectedDates} userId={this.state.user}/>
        <Favourites userId={this.state.user.id} getFavourites={this.getFavourites}/>
-       <Matches />
+       <Matches dates={this.mapDatesForProps()} favourites={this.state.favourites}/>
       </header>
     </div>
   );

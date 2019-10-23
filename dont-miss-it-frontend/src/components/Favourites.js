@@ -26,8 +26,8 @@ class Favourites extends Component {
      console.log('hi')
     }else if (this.props.userId !== prevProps.userId) {
   this.getFavouriteAttractions()
-    }else if (this.state.favouriteAttractionsFromServer !== prevState.favouriteAttractionsFromServer && this.state.favouriteAttractionsFromServer !== []){
-      this.props.getFavourites(this.state.favouriteAttractionsFromServer)
+    }else if (this.state.favouriteAttractions !== prevState.favouriteAttractions && this.state.favouriteAttractions !== []){
+      this.props.getFavourites(this.state.favouriteAttractions)
     }
   }
 
@@ -195,7 +195,10 @@ class Favourites extends Component {
         {/* <button onClick={this.showEventsOnClick}>{this.state.showFavouritesList ? "Hide my favourites list" : "Show my favourites list"}</button> */}
         <div>
          {/* {this.state.showFavouritesList ? <FavouritesList destroy={this.destroy} favourites={this.state.favouriteAttractionsFromServer} /> : undefined}  */}
-         <FavouritesList destroy={this.destroy} favourites={this.state.favouriteAttractions}/>
+        
+        
+        
+            {typeof this.state.favouriteAttractions !== 'undefined' ? <FavouritesList destroy={this.destroy} favourites={this.state.favouriteAttractions}/> : undefined}
         </div>
         
         <br></br>

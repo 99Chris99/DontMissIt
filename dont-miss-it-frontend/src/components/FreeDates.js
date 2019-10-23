@@ -6,7 +6,7 @@ constructor(props) {
 super();
   this.state = {
     selectedDate: '',
-    selectedDates: [],
+    selectedDates: ['2019-11-23'],
     user: props.userId.id
 };
 }
@@ -74,7 +74,9 @@ removeDate = (deleteDate) => {
 }
 
 listDates = () => {
-   return this.state.selectedDates.map(date => <li key={date.id}> {date.date}  <button onClick={() => this.removeDate(date)}>Delete</button></li>)
+//     if (this.state.selectedDates.length > 0) {
+//    return this.state.selectedDates.map(date => <li key={date.id}> {date.date}  <button onClick={() => this.removeDate(date)}>Delete</button></li>)
+//     }
 }
     
 
