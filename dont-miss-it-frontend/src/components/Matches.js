@@ -48,7 +48,7 @@ export class Matches extends Component {
             this.runUpdate()
         }else if (this.state.currentGet !== prevState.currentGet){
             this.populateevents()
-        }else if (this.state.events !== prevState.events){
+        }else if (this.state.events !== prevState.events && typeof this.props.dates !== 'undefined'){
             this.findMatches()
         }
     }

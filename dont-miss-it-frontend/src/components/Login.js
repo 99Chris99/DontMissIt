@@ -31,7 +31,8 @@ export class Login extends Component {
             signUpName: '',
             validUser: true
         })
-    }).catch(alert('Username Already Taken'))
+    }).then(response => console.log("new user ok") )
+    .catch(resp => console.log(resp))//.catch(alert('Username Already Taken'))
     }
     
     componentDidMount () {
