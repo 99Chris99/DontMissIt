@@ -37,7 +37,7 @@ getFavourites = (newFavs) => {
 }
 
 mapDatesForProps = () => {
-  if (this.state.selectedDates > 0) {
+  if (typeof this.state.selectedDates !== 'undefined') {
  return this.state.selectedDates.map(datey => datey.date)
   }
 }
