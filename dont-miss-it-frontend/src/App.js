@@ -117,6 +117,7 @@ class App extends Component {
                       <Matches
                         dates={this.mapDatesForProps()}
                         favourites={this.state.favourites}
+                        userId={this.state.user.id}
                       />
                     </div>
                   </div>
