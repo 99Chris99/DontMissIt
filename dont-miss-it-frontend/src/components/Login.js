@@ -5,7 +5,8 @@ export class Login extends Component {
         username: '',
         signUpName: '',      
         users: [],
-        validUser: false    
+        validUser: false,
+        loggedIn: false,
     }
 
     
@@ -24,15 +25,27 @@ export class Login extends Component {
             },
             body: JSON.stringify(data)
     }).then(response => response.json()).then(newUser => {
+        console.log(newUser)
+        if (typeof newUser.errors !== 'undefined'){
+            console.log('thats an error')
+            this.setState({signUpName: ''})
+            alert('Username has already been taken')
+        }else{
+
         this.addUsers([newUser])
         this.setState({
             username: newUser.username,
             signUpName: '',
             validUser: true
         })
-    }).then(response => console.log("new user ok") )
-    .catch(resp => console.log(resp))//.catch(alert('Username Already Taken'))
     }
+
+    }).then(console.log)
+   // .then(response => console.log("new user ok") )
+    //.catch(resp => console.log("rep" + resp))//.catch(alert('Username Already Taken'))
+    }
+
+     
     
     componentDidMount () {
         return this.getUsers()
@@ -83,7 +96,7 @@ export class Login extends Component {
     render() {
         return (
             <div>
-              {/* {this.state.validUser === true ? <button onClick={this.setState({validUser: false})}>Logout</button>} */}
+              {/* {this.state.loggedIn === true ? <button onClick={this.setState({validUser: false})}>Logout</button> :} */}
                 <h2>Login</h2>
                 <form onSubmit={event => this.validatieUser(event)}>
                 < div class="ui icon input">
@@ -105,3 +118,4 @@ export class Login extends Component {
 }
 
 export default Login;
+

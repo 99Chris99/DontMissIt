@@ -6,7 +6,7 @@ constructor(props) {
 super();
   this.state = {
     selectedDate: '',
-    selectedDates: ['2019-11-23'],
+    selectedDates: [],
     user: props.userId.id
 };
 }
@@ -16,19 +16,21 @@ super();
 componentDidUpdate (prevProps, preState) {
     if (this.state.selectedDates !== preState.selectedDates){
         this.props.getSelectedDates(this.state.selectedDates)
-    }else if (this.props.userId.id !== prevProps.userId.id) {
+   }else if (this.props.userId.id !== prevProps.userId.id) {
         this.setState({user: this.props.userId.id})
+        this.getUserDates()
     }
 }
 
     
-    componentDidMount (user) {
-    this.getUserDates(user)
-    console.log(this.props.userId)
-}
+//     componentDidMount () {
+//     this.getUserDates()
+//     console.log(this.props.userId)
+// }
 
 getUserDates = () => {
-    fetch(`http://localhost:3000/users/${this.state.user}`).then(response => response.json()).then(dates => this.setState({selectedDates: dates.free_dates}))    
+    console.log(this.state.user)
+    fetch(`http://localhost:3000/users/${this.props.userId.id}`).then(response => response.json()).then(dates => this.setState({selectedDates: dates.free_dates}))    
 }
 
 
@@ -47,14 +49,25 @@ addDates = (event) => {
             body: JSON.stringify(data)
         }).then(response => response.json())     
     .then(newDate => {
+
+        if (typeof this.state.selectedDates !== 'undefined'){
     this.setState({
         selectedDates: [
             ...this.state.selectedDates,
             newDate
         ]
+    })   
+}else{
+    this.setState({
+        selectedDates: [
+           
+            newDate
+        ]
+    })   
+}
     }
-    )   
-}) 
+
+) 
 }
 
 removeDate = (deleteDate) => {
@@ -74,10 +87,12 @@ removeDate = (deleteDate) => {
 }
 
 listDates = () => {
-//     if (this.state.selectedDates.length > 0) {
-//    return this.state.selectedDates.map(date => <li key={date.id}> {date.date}  <button onClick={() => this.removeDate(date)}>Delete</button></li>)
-//     }
+    if (this.state.selectedDates.length > 0) {
+   return this.state.selectedDates.map(date => <li key={date.id}> {date.date}  <button class="ui google plus circular icon button" id="button" onClick={() => this.removeDate(date)}><i aria-hidden="true" class="delete link icon"></i></button></li>)
+    }
 }
+
+
     
 
 //(event, date) => {this.removeDate(event, date)}
