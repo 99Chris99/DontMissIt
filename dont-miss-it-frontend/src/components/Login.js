@@ -38,9 +38,9 @@ export class Login extends Component {
             signUpName: '',
             validUser: true
         })
+        this.props.getUser(newUser)
     }
-
-    }).then(console.log)
+    })//.then(response => {this.props.getUser(response)})
    // .then(response => console.log("new user ok") )
     //.catch(resp => console.log("rep" + resp))//.catch(alert('Username Already Taken'))
     }
