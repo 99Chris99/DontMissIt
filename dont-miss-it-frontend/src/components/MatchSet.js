@@ -10,11 +10,12 @@ export class MatchSet extends Component {
         return this.props.matches.map(event => {
           return (
           <div>
-            <h3>I'm a match!!</h3>
+            
             <h5>{event.eventName} - {event.date}</h5>
             <p>{event.venue}</p>
             <p>Tickets are {event.onSale === 'onsale' ? 'On Sale' : 'Not on sale'}</p>
             <p><a href={event.link} target="_blank">Click here for event details</a></p>
+            ------------------
             </div>
           )
         }

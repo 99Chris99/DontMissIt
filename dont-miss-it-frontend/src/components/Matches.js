@@ -153,11 +153,13 @@ export class Matches extends Component {
     render() {
         return (
             <div>
-                <h3>It's a match!</h3>
+                <h3>Events you can go to!</h3>
+                ------------------
+                
                 {/* <button onClick={() => this.state.currentGet.length > 1 ? this.findMatches() : undefined }>Update Matches</button> */}
                       <MatchSet matches={this.state.eventMatches} />
                       
-                
+                      
             </div>
         );
     }

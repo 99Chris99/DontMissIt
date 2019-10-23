@@ -167,7 +167,7 @@ class Favourites extends Component {
   render() {
     return (
       <div>
-        Favourites component
+        <h5>Search for an artist or team you want to track</h5>
         <div>
           <form
             id="addFavourtiesForm"
@@ -190,6 +190,7 @@ class Favourites extends Component {
               Pick Attraction:
 
               <select  onChange={this.postEventOnClick}>
+                My favourites 
                 {this.state.attractions.map(attraction => <option value={attraction.tmId}>{attraction.name}</option>)}
               </select>
             </label>
@@ -198,8 +199,9 @@ class Favourites extends Component {
         {/* <button class="ui button" onClick={this.showEventsOnClick}>{this.state.showFavouritesList ? "Hide my favourites list" : "Show my favourites list"}</button> */}
         <div>
          {/* {this.state.showFavouritesList ? <FavouritesList destroy={this.destroy} favourites={this.state.favouriteAttractionsFromServer} /> : undefined}  */}
-        
-        
+        <br></br>
+        <br></br>
+        My Favourites:
         
             {typeof this.state.favouriteAttractions !== 'undefined' ? <FavouritesList destroy={this.destroy} favourites={this.state.favouriteAttractions}/> : undefined}
         </div>

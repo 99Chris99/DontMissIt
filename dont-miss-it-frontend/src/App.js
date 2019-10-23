@@ -55,7 +55,8 @@ class App extends Component {
           tabindex="0">
           {" "}
 
-          {this.state.user.id !== '' ? <button id="logout" class="ui primary button" onClick={() => this.logOut()}>Logout</button> : undefined}
+           <button style={ this.state.user.id !== '' ? {display: 'block'} : {display: 'none'} } id="logout" class="ui primary button" onClick={() => this.logOut()}>Logout</button>
+
           Welcome to <i>Don't Miss It </i>{this.state.user.id !== '' ? `${this.state.user.username} `: ''} 
 
         </div>
@@ -64,8 +65,8 @@ class App extends Component {
             <br></br>
             {/* <img className="logo" src={logo} /> */}
 
-            {this.state.user.id === "" ? (
-              <div class="ui card" id="card">
+           {/* // {this.state.user.id === "" ? ( */}
+              <div class="ui card" id="card" style={ this.state.user.id !== '' ? {display: 'none'} : {display: 'block'} }>
                 <div class="content">
                   <div class="header">
                     <Login getUser={this.getUser} />
@@ -73,9 +74,9 @@ class App extends Component {
                 </div>
                 <div class="extra content"></div>
               </div>
-            ) : (
+           
               <div id="table">
-                <table class="ui single line table" id="table">
+                <table class="ui single line table" id="table" style={ this.state.user.id !== '' ? {display: 'block'} : {display: 'none'} }>
                   <thead class="">
                     <tr class="">
                       <th class="">
@@ -98,6 +99,7 @@ class App extends Component {
                           <div class="content">
                             <div class="header">
                               <Favourites
+
                                 userId={this.state.user.id}
                                 getFavourites={this.getFavourites}
                               />
@@ -109,7 +111,7 @@ class App extends Component {
                     </tr>
                   </thead>
                 </table>
-                <div class="ui card" id="matches-card">
+                <div class="ui card" id="matches-card" style={ this.state.user.id !== '' ? {display: 'block'} : {display: 'none'} }>
                   <div class="content">
                     <div class="header">
                       <Matches
@@ -121,7 +123,7 @@ class App extends Component {
                   <div class="extra content"></div>
                 </div>
               </div>
-            )}
+           // )}
           </div>
         </header>
       </div>
