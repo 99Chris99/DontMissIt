@@ -39,6 +39,12 @@ class App extends Component {
     }
   }
 
+  logOut = () => {
+    this.setState({
+      user: { id: "" }
+    })
+  }
+
   render() {
     return (
       <div class="app">
@@ -48,7 +54,10 @@ class App extends Component {
           role="button"
           tabindex="0">
           {" "}
-          Welcome to <i>Don't Miss It</i>
+
+          {this.state.user.id !== '' ? <button id="logout" class="ui primary button" onClick={() => this.logOut()}>Logout</button> : undefined}
+          Welcome to <i>Don't Miss It </i>{this.state.user.id !== '' ? `${this.state.user.username} `: ''} 
+
         </div>
         <header className="App-header">
           <div>
