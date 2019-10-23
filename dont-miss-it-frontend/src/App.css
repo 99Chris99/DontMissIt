@@ -8,6 +8,8 @@
 
 .App-header {
   background-color: #282c34;
+  background-image: url('https://championsridedays.com.au/wp-content/uploads/2017/03/concert-smoke-crowd-people-concert-music-youth-club-photos-crowd-cheering-the-mood-the-smoke-tools-136417-2560x1440.jpg');
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -21,20 +23,7 @@
   color: #09d3ac;
 }
 
-/* #addFavouritesList {
-  width: 350px;
-  border: 2px solid green;
-  padding: 50px;
-  margin: 20px;
-  background-color: darkblue;
-} */
 
-
-/* #logo {
-  position: fixed !important;
-  top: 0 !important;
-  width: 100% !important;
-} */
 
 #card {
   width: auto;
@@ -54,4 +43,14 @@
   /* margin-block: 1rem; */
   margin-left: 1rem;
 
+}
+
+#matches-card {
+  width: 50vw;
+  height: 0%;
+  margin: 4rem;
+  /* align-content: center; */
+  /* align-self: center; */
+  align-items: center;
+  text-align: center;
 }

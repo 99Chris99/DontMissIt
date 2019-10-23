@@ -4,6 +4,7 @@ import Login from './components/Login'
 import FreeDates from './components/FreeDates'
 import Matches from './components/Matches'
 import Favourites from './components/Favourites'
+import crowd from "./crowd.jpg"
 
 
 
@@ -37,7 +38,7 @@ getFavourites = (newFavs) => {
 }
 
 mapDatesForProps = () => {
-  if (this.state.selectedDates > 0) {
+  if (typeof this.state.selectedDates !== 'undefined') {
  return this.state.selectedDates.map(datey => datey.date)
   }
 }
@@ -90,7 +91,7 @@ render () {
               </tr>
             </thead>
           </table>
-          <div class="ui card" id="card">
+          <div class="ui card" id="matches-card">
             <div class="content">
               <div class="header">
               <Matches dates={this.mapDatesForProps()} favourites={this.state.favourites}/>
