@@ -86,12 +86,15 @@ listDates = () => {
         return (
             <div>
                <form onSubmit={(event) => this.addDates(event)}>
+               <div class="ui icon input">
                 <input type="date" onChange={event => {this.setState(
                     {selectedDate: event.target.value})}}></input>
-                <button type="submit">Add Date</button>
+                <button class="ui button" type="submit">Add Date</button>
+                </div>
                </form>
 
                <div>
+                 <br></br>
                    <h5>I'm free on...</h5>
                    <ul>
                    {this.listDates()}

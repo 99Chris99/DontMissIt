@@ -172,12 +172,15 @@ class Favourites extends Component {
           <form
             id="addFavourtiesForm"
             onSubmit={event => this.submittedKeywordHandler(event)}>
+              <div class="ui icon input">
             <input
               type="text"
               onChange={event => {
                 this.setState({ searchKeyword: event.target.value })
               }}></input>
-            <button type="submit">Search Events</button>
+              
+            <button class="ui button" type="submit">Search Events</button>
+            </div>
           </form>
         </div>
         <div>
@@ -192,7 +195,7 @@ class Favourites extends Component {
             </label>
           </form>
         </div>
-        {/* <button onClick={this.showEventsOnClick}>{this.state.showFavouritesList ? "Hide my favourites list" : "Show my favourites list"}</button> */}
+        {/* <button class="ui button" onClick={this.showEventsOnClick}>{this.state.showFavouritesList ? "Hide my favourites list" : "Show my favourites list"}</button> */}
         <div>
          {/* {this.state.showFavouritesList ? <FavouritesList destroy={this.destroy} favourites={this.state.favouriteAttractionsFromServer} /> : undefined}  */}
         

@@ -17,7 +17,7 @@ class FavouritesList extends Component {
           {
             typeof this.props.favourites !== 'undefined' ?
             this.uniqueFavourites().map(attraction => (
-            <li key={attraction.id}> {attraction.name}<button onClick={() => this.props.destroy(attraction.id)} >Delete</button></li>
+            <li key={attraction.id}> {attraction.name}<button class="ui google plus circular icon button" id="button" onClick={() => this.props.destroy(attraction.id)}><i aria-hidden="true" class="delete link icon"></i></button></li>
           // {this.uniqueFavourites().map(attraction => (
           //   <li>{attraction.split(':')[1]}<button onClick={() => this.props.destroy(attraction.split(':')[0])} >Delete</button></li>
           ))

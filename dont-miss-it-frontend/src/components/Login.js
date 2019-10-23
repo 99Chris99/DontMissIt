@@ -8,7 +8,6 @@ export class Login extends Component {
         validUser: false    
     }
 
-
     
     getUsers = () => {
         fetch(`http://localhost:3000/users`).then(response => response.json()).then(users => this.addUsers(users))
@@ -84,17 +83,20 @@ export class Login extends Component {
     render() {
         return (
             <div>
+              {/* {this.state.validUser === true ? <button onClick={this.setState({validUser: false})}>Logout</button>} */}
                 <h2>Login</h2>
                 <form onSubmit={event => this.validatieUser(event)}>
+                < div class="ui icon input">
                     <input id="logInInput" type="text" onChange={event => this.setUsername(event)} value={this.state.username} />
-                    <div><button type="submit">Submit</button></div>
+                    <button class="ui button" type="submit">Submit</button></div>
                 </form>
                 <br></br>
                 <form onSubmit={event => this.postUser(event)}>
+                <br></br>
                     <h2>Sign Up</h2>
+                    <div class="ui icon input">
             <input id="signUpInput" type="text" onChange={event => this.setSignUpName(event)} value={this.state.signUpName} />
-            <div>
-            <button type="submit">Submit</button>
+            <button class="ui button" type="submit">Submit</button>
             </div>    
                 </form>
             </div>
